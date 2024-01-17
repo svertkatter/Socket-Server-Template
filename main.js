@@ -77,7 +77,7 @@ const broadcast = (ws, message, includeSelf) => {
                 y: 0,
                 z: 0,
                 select: 0
-        }
+        };
         client.send(resetValue);
       }
     });
