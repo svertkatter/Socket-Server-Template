@@ -71,7 +71,7 @@ const broadcast = (ws, message, includeSelf) => {
   keepAliveId = setInterval(() => {
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify({x:0, y:0, z:0,select:0}));
+        client.send(JSON.stringify({x:16, y:0, z:0,select:0}));
       }
     });
   }, 50000);
