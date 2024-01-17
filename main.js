@@ -74,7 +74,7 @@ const broadcast = (ws, message, includeSelf) => {
         client.send(JSON.stringify({x:16, y:0, z:0,select:0}));
       }
     });
-  }, 50000);
+  }, 10000);
 };
 
 
