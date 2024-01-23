@@ -31,14 +31,29 @@ wss.on("connection", function (ws, req) {
   }
 
   ws.on("message", (data) => {
-    let stringifiedData = data.toString();
-    let json_data = JSON.parse(data);
-    if (stringifiedData === 'pong') {
-      console.log('keepAlive');
-      return;
-    }else if(json_data.type === 'accelerationData'){
-      isAccelDataSent = true;
+    try{
+      let json_data = JSON.parse(data):
+      if (stringifiedData === 'pong') {
+        console.log('keepAlive');
+        return;
+      }else if(json_data.type === 'accelerationData'){
+        isAccelDataSent = true;
+      }
+    }catch (e){
+      if(data === 'pong'){
+        console.log('keepAlive');
+      }
     }
+
+    
+    // let stringifiedData = data.toString();
+    // let json_data = JSON.parse(data);
+    // if (stringifiedData === 'pong') {
+    //   console.log('keepAlive');
+    //   return;
+    // }else if(json_data.type === 'accelerationData'){
+    //   isAccelDataSent = true;
+    // }
     broadcast(ws, stringifiedData, false);
   });
 
