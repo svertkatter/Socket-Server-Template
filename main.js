@@ -106,7 +106,7 @@ function generateRandomId(length = 8) {
           wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         const randomId = generateRandomId();
-        const message = JSON.stringify({type: "keepAlive", id: randomId, x:16, y:0, z:0,select:0});
+        const message = JSON.stringify({type: "keepAlive", id: randomId, x:16, y:0, z:0,select:2});
         client.send(message);
       }
     });
