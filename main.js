@@ -32,7 +32,7 @@ wss.on("connection", function (ws, req) {
 
   ws.on("message", (data) => {
     try{
-      let json_data = JSON.parse(data):
+      let json_data = JSON.parse(data);
       if (stringifiedData === 'pong') {
         console.log('keepAlive');
         return;
