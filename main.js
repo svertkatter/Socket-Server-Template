@@ -34,10 +34,7 @@ wss.on("connection", function (ws, req) {
     let stringifiedData = data.toString();
     let json_data = JSON.parse(stringifiedData);
     try{
-      if (stringifiedData === 'pong') {
-        console.log('keepAlive');
-        return;
-      }else if(json_data.type === 'accelerationData'){
+      if(json_data.type === 'accelerationData'){
         isAccelDataSent = true;
       }
     }catch (e){
