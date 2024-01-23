@@ -32,6 +32,10 @@ wss.on("connection", function (ws, req) {
 
   ws.on("message", (data) => {
     let stringifiedData = data.toString();
+
+    if(stringifiedData === 'pong'){
+        console.log('keepAlive');
+    }
     
     try{
       let json_data = JSON.parse(stringifiedData);
@@ -39,9 +43,7 @@ wss.on("connection", function (ws, req) {
         isAccelDataSent = true;
       }
     }catch (e){
-      if(stringifiedData === 'pong'){
-        console.log('keepAlive');
-      }
+      console.error('Error parsing message as JSON:', e);
     }
 
     
