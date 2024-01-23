@@ -32,8 +32,9 @@ wss.on("connection", function (ws, req) {
 
   ws.on("message", (data) => {
     let stringifiedData = data.toString();
-    let json_data = JSON.parse(stringifiedData);
+    
     try{
+      let json_data = JSON.parse(stringifiedData);
       if(json_data.type === 'accelerationData'){
         isAccelDataSent = true;
       }
