@@ -64,6 +64,16 @@ const broadcast = (ws, message, includeSelf) => {
   }
 };
 
+// Function to generate a random ID
+function generateRandomId(length = 8) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+
 /**
  * Sends a ping message to all connected clients every 50 seconds
  */
@@ -71,7 +81,9 @@ const broadcast = (ws, message, includeSelf) => {
   keepAliveId = setInterval(() => {
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify({type: "keepAlive", x:16, y:0, z:0,select:0}));
+        const randomId = generateRandomId();
+        const message = JSON.stringify({type: "keepAlive", id: randomId, x:16, y:0, z:0,select:0});
+        client.send(message);
       }
     });
   }, 10000);
