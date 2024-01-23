@@ -11,6 +11,8 @@ const WebSocket = require("ws");
 
 let keepAliveId;
 
+let isAccelDataSent = false;
+
 const wss =
   process.env.NODE_ENV === "production"
     ? new WebSocket.Server({ server })
@@ -30,15 +32,20 @@ wss.on("connection", function (ws, req) {
 
   ws.on("message", (data) => {
     let stringifiedData = data.toString();
+    let json_data = JSON.parse(data);
     if (stringifiedData === 'pong') {
       console.log('keepAlive');
       return;
+    }else if(json_data.type === 'accelerationData'){
+      isAccelDataSent = true;
     }
     broadcast(ws, stringifiedData, false);
   });
 
   ws.on("close", (data) => {
     console.log("closing connection");
+
+    isAccelDataSent = false;
 
     if (wss.clients.size === 0) {
       console.log("last client disconnected, stopping keepAlive interval");
