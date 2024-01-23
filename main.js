@@ -86,13 +86,15 @@ function generateRandomId(length = 8) {
  */
  const keepServerAlive = () => {
   keepAliveId = setInterval(() => {
-    wss.clients.forEach((client) => {
+    if(!isAccelDataSent){
+          wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         const randomId = generateRandomId();
         const message = JSON.stringify({type: "keepAlive", id: randomId, x:16, y:0, z:0,select:0});
         client.send(message);
       }
     });
+    }
   }, 10000);
 };
 
